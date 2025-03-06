@@ -5,11 +5,14 @@ const pool = require('./src/models/DB_Pool');
 require('dotenv').config();
 
 // 환경변수
-const port = process.env.PORT;
+// const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const host = process.env.HOST;
 
 // 서비스 진입 라우터
 const userRouter = require('./src/routes/UserRouter');
+
+const vocaRouter = require('./src/routes/VocaRouter');  //추가
 
 const app = express();
 
@@ -23,6 +26,8 @@ app.use(morgan('dev'));
 //---------------------------------------
 // 라우터 연결
 app.use('/api/users', userRouter);
+
+app.use('/api/users/:userId/set/:setId/voca', vocaRouter); //추가
 const authRouter = require('./src/routes/AuthRouter');
 
 // 로그인 라우트 추가

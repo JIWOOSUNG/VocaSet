@@ -30,7 +30,13 @@ exports.login = async (req, res) => {
 
         // JWT 토큰 생성
         const token = generateToken(user);
-        res.json(response('success', '로그인 성공', { token }));
+        res.json(
+            response('success', '로그인 성공', {
+                user_id: user.user_id, // ✅ 여기서 user_id를 명확하게 전달해야 함
+                email: user.user_email,
+                token,
+            })
+        );
     } catch (err) {
         console.error('Error:', err);
         res.status(500).json(response('fail', 'DB 연결 실패: ' + err.message));
