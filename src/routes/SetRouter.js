@@ -13,15 +13,16 @@ router.get('/', setController.getAllSets);
 // 세트 생성
 router.post('/', setController.postSet);
 
+// 세트의 단어목록 가져오기
+router.get('/:userId/set/:setId/voca', setController.getVocaList);
+
 // 세트 조회 (세트 정보 + 단어 목록)
 router.get('/:setId', setController.getSet);
-
 
 // 세트의 모든 단어 조회
 router.get('/:setId/voca', vocaController.getAllVoca);
 
-// 세트의 단어목록 가져오기
-router.get('/:userId/set/:setId/voca', setController.getVocaList);
+
 
 // 세트 수정
 router.put('/:setId', setController.updateSet);

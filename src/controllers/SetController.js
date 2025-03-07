@@ -45,33 +45,6 @@ exports.getSet = async (req, res) => {
     }
 };
 
-// 세트 생성
-// exports.postSet = async (req, res) => {
-//     const { userId } = req.params;
-//     const { set_name, description } = req.body;
-//     if (!set_name || !description) {
-//         return res.status(400).json(response('fail', '내용을 입력하세요'));
-//     }
-
-//     const setData = [userId, set_name, description];
-//     const sql = `
-//       insert into voca_set(user_id, set_name, description)
-//       value(?, ?, ?)
-//     `;
-
-//     try {
-//         const [result] = await pool.query(sql, setData);
-
-//         if (result.affectedRows > 0) {
-//             res.json(response('success', '세트 생성에 성공했습니다', req.body));
-//         } else {
-//             res.status(500).json(response('fail', `세트 생성에 실패했습니다`));
-//         }
-//     } catch (err) {
-//         console.error('Error: ' + err);
-//         res.status(500).json(response('fail', 'DB 연결 실패: ' + err.message));
-//     }
-// };
 
 // 단어가져오는 로직
 exports.getVocaList = async (req, res) => {
@@ -91,44 +64,6 @@ exports.getVocaList = async (req, res) => {
     }
 };
 
-// exports.postSet = async (req, res) => {
-//     const { userId } = req.params;
-//     const { set_name, description, words } = req.body; // ✅ 단어 목록도 함께 받음
-
-//     if (!set_name || !description || !words || words.length === 0) {
-//         return res.status(400).json(response('fail', '세트 정보와 단어를 입력하세요'));
-//     }
-
-//     const setData = [userId, set_name, description];
-//     const sqlInsertSet = `
-//       INSERT INTO voca_set (user_id, set_name, description)
-//       VALUES (?, ?, ?)
-//     `;
-
-//     try {
-//         // 1️⃣ 세트 저장
-//         const [setResult] = await pool.query(sqlInsertSet, setData);
-//         if (setResult.affectedRows === 0) {
-//             return res.status(500).json(response('fail', '세트 생성에 실패했습니다.'));
-//         }
-
-//         const setId = setResult.insertId; // ✅ 생성된 세트 ID 가져오기
-
-//         // 2️⃣ 단어 저장 (배열 반복문 실행)
-//         const sqlInsertVoca = `
-//           INSERT INTO voca (set_id, word, meaning)
-//           VALUES ?
-//         `;
-//         const vocaData = words.map((word) => [setId, word.word, word.meaning]); // ✅ 배열 변환
-//         await pool.query(sqlInsertVoca, [vocaData]); // ✅ 단어 여러 개 한 번에 저장
-
-//         // 3️⃣ 응답 반환 (세트 ID 포함)
-//         res.json(response('success', '세트 및 단어 저장 성공', { set_id: setId }));
-//     } catch (err) {
-//         console.error('Error:', err);
-//         res.status(500).json(response('fail', 'DB 연결 실패: ' + err.message));
-//     }
-// };
 
 // ✅ 단어 세트 + 단어 함께 저장하기
 exports.postSet = async (req, res) => {

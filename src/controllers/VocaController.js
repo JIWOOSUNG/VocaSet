@@ -4,7 +4,7 @@ const { response } = require('../utils/format');
 // 전체 단어 조회
 exports.getAllVoca = async (req, res) => {
     const { setId } = req.params;
-    const sql = `select * from voca_set where set_id=?`;
+    const sql = `select * from voca where set_id=?`;
 
     try {
         const [result] = await pool.query(sql, [setId]); // []
